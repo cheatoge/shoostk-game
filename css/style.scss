@@ -35,13 +35,13 @@ body {
     width: $tile-size;
     height: $tile-size;
     border-radius: 3px;
+    text-align: center;
+    line-height: $tile-size;
     background-color: $secondary-color;
   }
 
   .player {
     @extend .grid-cell;
-    text-align: center;
-    line-height: $tile-size;
     position: absolute;
     left: $padding;
     bottom: $padding;

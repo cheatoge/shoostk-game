@@ -19,31 +19,45 @@ $(document).ready( () => {
       this.value = cellProperties.value;
     }
 
+    static _updateCellProperties() {
+      const cellProperties = GridCell._generateCellProperties();
+      this.actionType = cellProperties.type;
+      this.value = cellProperties.value;
+    }
+
     static _generateCellProperties() {
       const val = randomizeInt(1, 4);
       switch (val){
         case 1:
-          return { type:'addition', value: randomizeInt(1, 10)};
+          return { type:'+', value: randomizeInt(1, 10)};
         case 2:
-          return { type:'substraction', value: randomizeInt(1,10)};
+          return { type:'-', value: randomizeInt(1,10)};
         case 3:
-          return { type:'multiplication', value: 2};
+          return { type:'*', value: 2};
         case 4:
-          return { type:'division', value: randomizeInt(2,5)};
+          return { type:'/', value: randomizeInt(2,5)};
 
       }
     }
   }
 
-  function createGameGrid(size) {
+  function create2DGrid(size) {
     let gameGrid = new Array(size);
-    for (let y = 0; y < size; y++) {
-      gameGrid[y] = new Array(size);
-      for(let x = 0; x < size; x++){
-        gameGrid[y][x] = new GridCell(x, y);
+    for (let x = 0; x < size; x++) {
+      gameGrid[size-1-x] = new Array(size);
+      for(let y = 0; y < size; y++) {
+        gameGrid[size-1-x][y] = new GridCell(y, x);
       }
     }
     return gameGrid;
+  }
+
+  function createHtmlCells(grid) {
+    for (let x = 0; x < gridSize; x++) {
+      for(const cell of grid[x]){
+        $('.grid-container').append(`<div class="grid-cell" id="${cell.htmlId}">${cell.actionType}${cell.value}</div>`);
+      }
+    }
   }
 
   class Player {
@@ -68,14 +82,11 @@ $(document).ready( () => {
     _isMovePossible(nextPosition) {
       const x = nextPosition.x;
       const y = nextPosition.y;
-      function gridContains(position) {
-        return (position <= gridSize-1 && position >= 0);
-      }
-
+      const gridContains = (position) => position <= gridSize-1 && position >= 0;
       return ( gridContains(x) && gridContains(y) );
     }
 
-    _handleMovement(nextPosition) {
+    _handlePlayerAction(nextPosition) {
       if(this._isMovePossible(nextPosition)){
         this.position = nextPosition;
         this._updatePosition();
@@ -84,22 +95,22 @@ $(document).ready( () => {
 
     moveUp() {
       let newPosition = { x: player1.position.x, y: player1.position.y+1 };
-      this._handleMovement(newPosition);
+      this._handlePlayerAction(newPosition);
     }
 
     moveDown() {
       let newPosition = { x: player1.position.x, y: player1.position.y-1 };
-      this._handleMovement(newPosition);
+      this._handlePlayerAction(newPosition);
     }
 
     moveRight() {
       let newPosition = { x: player1.position.x+1, y: player1.position.y };
-      this._handleMovement(newPosition);
+      this._handlePlayerAction(newPosition);
     }
 
     moveLeft() {
       let newPosition = { x: player1.position.x-1, y: player1.position.y };
-      this._handleMovement(newPosition);
+      this._handlePlayerAction(newPosition);
     }
   }
 
@@ -128,7 +139,8 @@ $(document).ready( () => {
     }
   });
 
-  const gameGrid = createGameGrid(gridSize);
+  const gameGrid = create2DGrid(gridSize);
+  createHtmlCells(gameGrid);
   const player1 = new Player();
 
   console.log(gameGrid);

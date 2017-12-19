@@ -26,10 +26,10 @@ body {
     width: 110px;
     height: 110px;
     border-radius: 3px;
-    background-color: #ffe2b5; }
-  .grid-container .player {
     text-align: center;
     line-height: 110px;
+    background-color: #ffe2b5; }
+  .grid-container .player {
     position: absolute;
     left: 10px;
     bottom: 10px;
