@@ -5,11 +5,45 @@ $(document).ready( () => {
   const cellSpacing = 10;   // Space between tiles
   const gridContainerPadding = 10;   // Grid container's padding
 
+  function randomizeInt(min, max){
+    max++;
+    return Math.floor(Math.random() * (max - min) + min);
+  }
+
   class GridCell {
-    constructor(positionX, positionY, value){
+    constructor(positionX, positionY){
       this.position = { x: positionX, y: positionY};
-      this.value = value;
+      this.htmlId = `x${positionX}y${positionY}`;
+      const cellProperties = GridCell._generateCellProperties();
+      this.actionType = cellProperties.type;
+      this.value = cellProperties.value;
     }
+
+    static _generateCellProperties() {
+      const val = randomizeInt(1, 4);
+      switch (val){
+        case 1:
+          return { type:'addition', value: randomizeInt(1, 10)};
+        case 2:
+          return { type:'substraction', value: randomizeInt(1,10)};
+        case 3:
+          return { type:'multiplication', value: 2};
+        case 4:
+          return { type:'division', value: randomizeInt(2,5)};
+
+      }
+    }
+  }
+
+  function createGameGrid(size) {
+    let gameGrid = new Array(size);
+    for (let y = 0; y < size; y++) {
+      gameGrid[y] = new Array(size);
+      for(let x = 0; x < size; x++){
+        gameGrid[y][x] = new GridCell(x, y);
+      }
+    }
+    return gameGrid;
   }
 
   class Player {
@@ -21,7 +55,7 @@ $(document).ready( () => {
       this.create();
     }
 
-    create(){
+    create() {
       $('.grid-container').append(`<div id="${this.htmlId}" class="player">${this.value}</div>`);
     }
 
@@ -41,29 +75,29 @@ $(document).ready( () => {
       return ( gridContains(x) && gridContains(y) );
     }
 
-    _handleMovement(nextPosition){
+    _handleMovement(nextPosition) {
       if(this._isMovePossible(nextPosition)){
         this.position = nextPosition;
         this._updatePosition();
       }
     }
 
-    moveUp(){
+    moveUp() {
       let newPosition = { x: player1.position.x, y: player1.position.y+1 };
       this._handleMovement(newPosition);
     }
 
-    moveDown(){
+    moveDown() {
       let newPosition = { x: player1.position.x, y: player1.position.y-1 };
       this._handleMovement(newPosition);
     }
 
-    moveRight(){
+    moveRight() {
       let newPosition = { x: player1.position.x+1, y: player1.position.y };
       this._handleMovement(newPosition);
     }
 
-    moveLeft(){
+    moveLeft() {
       let newPosition = { x: player1.position.x-1, y: player1.position.y };
       this._handleMovement(newPosition);
     }
@@ -93,7 +127,10 @@ $(document).ready( () => {
         break;
     }
   });
-  
+
+  const gameGrid = createGameGrid(gridSize);
   const player1 = new Player();
+
+  console.log(gameGrid);
 
 });
