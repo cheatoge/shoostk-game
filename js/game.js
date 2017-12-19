@@ -1,21 +1,28 @@
 $(document).ready( () => {
 
   const gridSize = 4;
-  const tileSize = 110;
-  const tileSpacing = 10;   // Space between tiles
+  const cellSize = 110;
+  const cellSpacing = 10;   // Space between tiles
   const gridContainerPadding = 10;   // Grid container's padding
 
-  class Player {
-    constructor(value = 10){
+  class GridCell {
+    constructor(positionX, positionY, value){
+      this.position = { x: positionX, y: positionY};
       this.value = value;
+    }
+  }
+
+  class Player {
+    constructor(){
       this.position = { x: 0, y: 0};
       this.htmlId = 'player';
-      this.moveRadius = tileSize + tileSpacing;
+      this.moveRadius = cellSize + cellSpacing;
+      this.value = 66;
+      this.create();
     }
 
     create(){
       $('.grid-container').append(`<div id="${this.htmlId}" class="player">${this.value}</div>`);
-      console.log('blin');
     }
 
     _updatePosition() {
@@ -87,7 +94,6 @@ $(document).ready( () => {
     }
   });
   
-  const player1 = new Player(66);
-  player1.create();
+  const player1 = new Player();
 
 });
