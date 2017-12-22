@@ -1,22 +1,47 @@
 $tile-size: 110px;
-$primary-color: coral;
-$secondary-color: #ffe2b5;
+$primary-color: #f9e6cc;
+$secondary-color: #c4957f;
+$secondary-color-hover: #f49866;
 $font-color: #703535;
 
 body {
   margin: 0;
   padding: 0;
-  background-color: antiquewhite;
-  font: 100% Helvetica, sans-serif;
+  background-color: #f7f0e8;
+  font-family: 'Nunito', sans-serif;
   color: $font-color;
-  font-size: 160%;
+  font-size: 20px;
+}
+
+h1, strong, .grid-cell, .button {
+  font-family: 'Bungee', cursive;
+}
+
+.button {
+  border-radius: 6px;
+  padding: 0 10px;
+  background-color: $primary-color;
+  border: 3px solid $secondary-color;
+  font-size: 0.95em;
+  display: inline-block;
+  transition: all .3s;
+}
+
+.button:hover {
+  cursor: pointer;
+  background-color: $secondary-color-hover;
 }
 
 .container {
-  margin-top: 80px;
   width: 500px;
   margin-left: auto;
   margin-right: auto;
+}
+
+.game-panel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .grid-container {
@@ -24,12 +49,13 @@ body {
   margin: 40px 5px;
   padding: $padding;
   border-radius: 6px;
-  background-color: $primary-color;
+  background-color: $secondary-color;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-column-gap: 10px;
   grid-row-gap: 10px;
   position: relative;
+  font-size: 1.2em;
 
   .grid-cell {
     width: $tile-size;
@@ -37,7 +63,7 @@ body {
     border-radius: 3px;
     text-align: center;
     line-height: $tile-size;
-    background-color: $secondary-color;
+    background-color: $primary-color;
   }
 
   .player {
@@ -45,6 +71,6 @@ body {
     position: absolute;
     left: $padding;
     bottom: $padding;
-    background-color: lightsalmon;
+    background-color: #f49866;
   }
 }

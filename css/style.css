@@ -1,38 +1,59 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: antiquewhite;
-  font: 100% Helvetica, sans-serif;
+  background-color: #f7f0e8;
+  font-family: 'Nunito', sans-serif;
   color: #703535;
-  font-size: 160%; }
+  font-size: 20px; }
+
+h1, strong, .grid-cell, .grid-container .player, .button {
+  font-family: 'Bungee', cursive; }
+
+.button {
+  border-radius: 6px;
+  padding: 0 10px;
+  background-color: #f9e6cc;
+  border: 3px solid #c4957f;
+  font-size: 0.95em;
+  display: inline-block;
+  transition: all .3s; }
+
+.button:hover {
+  cursor: pointer;
+  background-color: #f49866; }
 
 .container {
-  margin-top: 80px;
   width: 500px;
   margin-left: auto;
   margin-right: auto; }
+
+.game-panel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; }
 
 .grid-container {
   margin: 40px 5px;
   padding: 10px;
   border-radius: 6px;
-  background-color: coral;
+  background-color: #c4957f;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-column-gap: 10px;
   grid-row-gap: 10px;
-  position: relative; }
+  position: relative;
+  font-size: 1.2em; }
   .grid-container .grid-cell, .grid-container .player {
     width: 110px;
     height: 110px;
     border-radius: 3px;
     text-align: center;
     line-height: 110px;
-    background-color: #ffe2b5; }
+    background-color: #f9e6cc; }
   .grid-container .player {
     position: absolute;
     left: 10px;
     bottom: 10px;
-    background-color: lightsalmon; }
+    background-color: #f49866; }
 
 /*# sourceMappingURL=style.css.map */
