@@ -4,6 +4,8 @@ $(document).ready(() => {
   const cellSize = 110;
   const cellSpacing = 10;   // Space between tiles
   const gridContainerPadding = 10;   // Grid container's padding
+  const startValue = 66;
+  let pause = false;
 
   function randomizeInt(min, max) {
     max++;
@@ -19,17 +21,6 @@ $(document).ready(() => {
       this.value = cellProperties.value;
     }
 
-    appendToHtml() {
-      $('.grid-container').append(`<div class="grid-cell" id="${this.postitionAsText}">${this.actionType}${this.value}</div>`);
-    }
-
-    updateCellProperties() {
-      const cellProperties = GridCell.generateCellProperties();
-      this.actionType = cellProperties.type;
-      this.value = cellProperties.value;
-      $(`#${this.postitionAsText}`).html(`${this.actionType}${this.value}`);
-    }
-
     static generateCellProperties() {
       const val = randomizeInt(1, 4);
       switch (val) {
@@ -42,6 +33,27 @@ $(document).ready(() => {
         case 4:
           return {type: '/', value: randomizeInt(2, 5)};
       }
+    }
+
+    doPopInAnimation() {
+      const cellHtml = $(`#${this.postitionAsText}`);
+        $(cellHtml).stop().animate({ fontSize : '100%' }, 'fast');
+    }
+
+    doPopOutAnimation(then) {
+      const cellHtml = $(`#${this.postitionAsText}`);
+      $(cellHtml).stop().animate({ fontSize : '0' }, 'fast', then);
+    }
+
+    appendToHtml() {
+      $('.grid-container').append(`<div class="grid-cell" id="${this.postitionAsText}">${this.actionType}${this.value}</div>`);
+    }
+
+    updateCellProperties() {
+      const cellProperties = GridCell.generateCellProperties();
+      this.actionType = cellProperties.type;
+      this.value = cellProperties.value;
+      $(`#${this.postitionAsText}`).html(`${this.actionType}${this.value}`);
     }
   }
 
@@ -60,23 +72,51 @@ $(document).ready(() => {
     for (let x = 0; x < gridSize; x++) {
       for (const cell of grid[x]) {
         cell.appendToHtml();
+        cell.doPopInAnimation();
       }
     }
   }
 
   const gameGrid = create2DGrid(gridSize);
+  gameGrid.resetGameGrid = function () {
+    for (const row of gameGrid) {
+      for (const cell of row) {
+        cell.doPopOutAnimation(function(){
+          cell.updateCellProperties();
+          cell.doPopInAnimation();
+        });
+      }
+    }
+  };
 
   class Player {
     constructor() {
       this.position = {x: 0, y: 0};
       this.playerID = 'player';
       this.moveRadius = cellSize + cellSpacing;
-      this.value = 66;
+      this.value = startValue;
+      this.moves = 0;
       this.create();
     }
 
     create() {
       $('.grid-container').append(`<div id="${this.playerID}" class="player">${this.value}</div>`);
+    }
+
+    reset() {
+      this.position.x = 0;
+      this.position.y = 0;
+      this.value = startValue;
+      this._updatePosition();
+      this._updateHtmlValue();
+      this.moves = 0;
+    }
+
+    doPopAnimation() {
+      const cellHtml = $(`#${this.playerID}`);
+      $(cellHtml).stop().animate({ fontSize : '110%' }, 'fast', function () {
+        $(cellHtml).stop().animate({ fontSize : '100%' }, 'fast');
+      });
     }
 
     _updatePosition() {
@@ -98,6 +138,7 @@ $(document).ready(() => {
 
     _handlePlayerAction(nextPosition) {
       if (this._isMovePossible(nextPosition)) {
+        this.moves++;
         const steppedCell = gameGrid[gridSize - 1 - nextPosition.y][nextPosition.x];
         this.position = nextPosition;
         this._updatePosition();
@@ -117,60 +158,77 @@ $(document).ready(() => {
         }
         steppedCell.updateCellProperties();
         this._updateHtmlValue();
+        this.doPopAnimation();
         if (this.value === 6) {
-          alert('You won m8!');
+          pause = true;
+          $('#moves').html(this.moves);
+          $('#game-message').fadeIn("slow");
         }
       }
     }
 
     moveUp() {
-      const nextPosition = {x: player1.position.x, y: player1.position.y + 1};
+      const nextPosition = {x: player.position.x, y: player.position.y + 1};
       this._handlePlayerAction(nextPosition);
     }
 
     moveDown() {
-      const nextPosition = {x: player1.position.x, y: player1.position.y - 1};
+      const nextPosition = {x: player.position.x, y: player.position.y - 1};
       this._handlePlayerAction(nextPosition);
     }
 
     moveRight() {
-      const nextPosition = {x: player1.position.x + 1, y: player1.position.y};
+      const nextPosition = {x: player.position.x + 1, y: player.position.y};
       this._handlePlayerAction(nextPosition);
     }
 
     moveLeft() {
-      const nextPosition = {x: player1.position.x - 1, y: player1.position.y};
+      const nextPosition = {x: player.position.x - 1, y: player.position.y};
       this._handlePlayerAction(nextPosition);
     }
   }
 
   document.addEventListener('keydown', (e) => {
-    switch (e.code) {
-      case 'KeyW':
+    if(pause) return;
+    // There are many cases in switch because Edge and Chrome have different keys' names. I could use keyCodes, but they are harder to read and maintain imo.
+    switch (e.key) {
+      case 'w':
+      case 'W':
       case 'ArrowUp':
+      case 'Up':
         e.preventDefault();
-        player1.moveUp();
+        player.moveUp();
         break;
-      case 'KeyS':
+      case 's':
+      case 'S':
+      case 'Down':
       case 'ArrowDown':
         e.preventDefault();
-        player1.moveDown();
+        player.moveDown();
         break;
-      case 'KeyA':
+      case 'A':
+      case 'a':
+      case 'Left':
       case 'ArrowLeft':
         e.preventDefault();
-        player1.moveLeft();
+        player.moveLeft();
         break;
-      case 'KeyD':
+      case 'D':
+      case 'd':
+      case 'Right':
       case 'ArrowRight':
         e.preventDefault();
-        player1.moveRight();
+        player.moveRight();
         break;
     }
   });
+
   createHtmlCells(gameGrid);
-  const player1 = new Player();
+  const player = new Player();
 
-  console.log(gameGrid);
-
+  $('.new-game').on('click', () => {
+    gameGrid.resetGameGrid();
+    player.reset();
+    $('#game-message').fadeOut("fast", () => pause = false);
+  })
 });

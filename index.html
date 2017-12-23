@@ -1,6 +1,6 @@
 <!doctype html>
 
-<html lang="pl">
+<html lang="pl" xmlns="http://www.w3.org/1999/html">
 <head>
   <meta charset="utf-8">
 
@@ -13,21 +13,25 @@
 
 <body>
   <div class="container">
-    <header><h1>shoos.tk</h1></header>
+    <header><h1 class="title">shoos.tk</h1></header>
     <section>
       <div class="game-panel">
         <span>Move your tile to get value <b>6</b>!</span>
-        <div><div class="button">New game</div></div>
+        <div><div class="button new-game">New game</div></div>
       </div>
       <div class="grid-container">
+        <div id="game-message">
+          <h1><strong>Congratulations!</strong></h1>
+          <p><span>You won in <b id="moves"></b> moves!</span></p>
+          <div class="button new-game">Play again!</div>
+        </div>
       </div>
-
       <p>
         <strong>How to play: </strong><br>
         Move the tiles by using <b>arrow keys</b> or <b>WSAD</b> to move your tile. When your tile's value become 6, you win.
       </p>
     </section>
-    <footer></footer>
+    <footer><p><small>Created by Łukasz Szpil</small></p></footer>
   </div>
 
   <script src="js/jquery-3.2.1.min.js"></script>

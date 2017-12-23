@@ -4,7 +4,10 @@ body {
   background-color: #f7f0e8;
   font-family: 'Nunito', sans-serif;
   color: #703535;
-  font-size: 20px; }
+  font-size: 17px; }
+
+* {
+  box-sizing: border-box; }
 
 h1, strong, .grid-cell, .grid-container .player, .button {
   font-family: 'Bungee', cursive; }
@@ -22,17 +25,34 @@ h1, strong, .grid-cell, .grid-container .player, .button {
   cursor: pointer;
   background-color: #f49866; }
 
+.title {
+  display: inline-block; }
+
 .container {
   width: 500px;
   margin-left: auto;
-  margin-right: auto; }
+  margin-right: auto;
+  min-height: 600px; }
 
 .game-panel {
   display: flex;
   justify-content: space-between;
   align-items: center; }
 
+#game-message {
+  height: 490px;
+  width: 490px;
+  padding-top: 10%;
+  border-radius: 6px;
+  position: absolute;
+  text-align: center;
+  background-color: rgba(242, 215, 188, 0.65);
+  top: 0;
+  left: 0;
+  z-index: 10; }
+
 .grid-container {
+  height: 490px;
   margin: 40px 5px;
   padding: 10px;
   border-radius: 6px;
@@ -49,11 +69,18 @@ h1, strong, .grid-cell, .grid-container .player, .button {
     border-radius: 3px;
     text-align: center;
     line-height: 110px;
-    background-color: #f9e6cc; }
+    background-color: #f9e6cc;
+    font-size: 0; }
   .grid-container .player {
     position: absolute;
     left: 10px;
     bottom: 10px;
-    background-color: #f49866; }
+    background-color: #f49866;
+    font-size: inherit; }
+
+footer {
+  text-align: center;
+  margin-top: 50px;
+  border-top: 1px solid #c4957f; }
 
 /*# sourceMappingURL=style.css.map */
