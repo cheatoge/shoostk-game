@@ -2,3 +2,4 @@
 .idea/*
 css/.sass-cache
 css/.sass-cache/*
+css/*.css.map
