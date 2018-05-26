@@ -1,40 +1,53 @@
 <!doctype html>
-
 <html lang="pl" xmlns="http://www.w3.org/1999/html">
 <head>
   <meta charset="utf-8">
-
-  <title>Shoos.tk</title>
-  <meta name="description" content="Shoos.tk">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shoostk</title>
+  <meta name="description" content="Simple maths game">
   <meta name="author" content="Łukasz Szpil">
   <link rel="stylesheet" href="css/style.css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:600,700" rel="stylesheet">
 </head>
 
 <body>
-  <div class="container">
-    <header><h1 class="title">shoos.tk</h1></header>
-    <section>
-      <div class="game-panel">
+<div class="container">
+
+  <header>
+    <h1 class="title">shoostk</h1>
+  </header>
+
+  <main>
+    <div id="game">
+      <div id="game-panel">
         <span>Move your tile to get value <b>6</b>!</span>
-        <div><div class="button new-game">New game</div></div>
+        <button class="button new-game">New game</button>
       </div>
-      <div class="grid-container">
+      <div id="grid-container">
         <div id="game-message">
-          <h1><strong>Congratulations!</strong></h1>
-          <p><span>You won in <b id="moves"></b> moves!</span></p>
-          <div class="button new-game">Play again!</div>
+          <div>
+          <p>
+            <span class="message-header">Congratulations!</span><br>
+            <span>You won in <b id="moves"></b> moves!</span>
+          </p>
+          <button class="button new-game">Play again!</button>
+          </div>
         </div>
       </div>
-      <p>
-        <strong>How to play: </strong><br>
-        Move the tiles by using <b>arrow keys</b> or <b>WSAD</b> to move your tile. When your tile's value become 6, you win.
-      </p>
-    </section>
-    <footer><p><small>Created by Łukasz Szpil</small></p></footer>
-  </div>
+    </div>
+    <h2>How to play: </h2>
+    Move the tiles by using <b>arrow keys</b> or <b>WSAD</b> to move your tile. When your tile's value become 6, you
+    win.
+  </main>
 
-  <script src="js/jquery-3.2.1.min.js"></script>
-  <script src="js/game.js"></script>
+  <footer>
+    <p>
+      <small>Created by Łukasz Szpil</small>
+    </p>
+  </footer>
+
+</div>
+<script src="js/jquery-3.2.1.min.js"></script>
+<script src="js/game.js" type="module"></script>
 </body>
 </html>

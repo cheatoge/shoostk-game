@@ -1,28 +1,36 @@
-$tile-size: 110px;
-$primary-color: #f9e6cc;
+/* ==================== Main ==================== */
+
+
+/* color set */
+$primary-color: #fff1dd;
 $secondary-color: #c4957f;
-$secondary-color-hover: #f49866;
+$secondary-color-hover: #ffb58e;
 $font-color: #703535;
 
 body {
+  font-family: 'Nunito', sans-serif;
+  font-size: 17px;
+  color: $font-color;
+  background-color: #fff8ea;
   margin: 0;
   padding: 0;
-  background-color: #f7f0e8;
-  font-family: 'Nunito', sans-serif;
+}
+
+.container {
+  width: calc(100% - 24px);
+  max-width: 500px;
+  padding: 0 12px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+button {
   color: $font-color;
-  font-size: 17px;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-.button {
-  border-radius: 6px;
-  padding: 0 10px;
   background-color: $primary-color;
   border: 3px solid $secondary-color;
-  font-size: 0.95em;
+  padding: 2px 10px;
+  border-radius: 6px;
+  font-size: 1.2em;
   display: inline-block;
   transition: all .3s;
 }
@@ -32,68 +40,88 @@ body {
   background-color: $secondary-color-hover;
 }
 
-.title {
-  display: inline-block;
+h1 {
+  margin-left: 15px;
 }
 
-.container {
-  width: 500px;
-  margin-left: auto;
-  margin-right: auto;
-  min-height: 600px;
+h2, h3, h4, h5, h6 {
+  margin: 4px 0;
+  font-size: 1.2em;
 }
 
-.game-panel {
+/* ==================== Header ==================== */
+
+/* How to play and reset button inside */
+#game-panel {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-}
+  margin-bottom: 20px;
 
-#game-message {
-  height: 490px;
-  width: 490px;
-  padding-top: 20%;
-  border-radius: 6px;
-  position: absolute;
-  text-align: center;
-  background-color: rgba(242, 215, 188, 0.8);
-  top: 0;
-  left: 0;
-  z-index: 10;
-  display: none;
-}
-
-.grid-container {
-  $padding: 10px;
-  height: 490px;
-  margin: 40px 5px;
-  padding: $padding;
-  border-radius: 6px;
-  background-color: $secondary-color;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-column-gap: 10px;
-  grid-row-gap: 10px;
-  position: relative;
-  font-size: 1.2em;
-
-  .grid-cell {
-    width: $tile-size;
-    height: $tile-size;
-    border-radius: 3px;
-    text-align: center;
-    line-height: $tile-size;
-    background-color: $primary-color;
-    font-size: 0;
+  span {
+    margin: 0 20px 10px 0;
   }
 
-  .player {
-    @extend .grid-cell;
+  button {
+    margin-left: auto;
+  }
+}
+
+/* ==================== Game ==================== */
+
+#game {
+  margin-bottom: 30px;
+  width: 100%;
+  overflow: auto;
+
+  /* Message displayed on game grid (e.g. when you win) */
+  #game-message {
+    background-color: rgba(242, 215, 188, 0.8);
+    border-radius: 6px;
+    width: 100%;
+    height: 100%;
     position: absolute;
-    left: $padding;
-    bottom: $padding;
-    background-color: #f49866;
-    font-size: inherit;
+    top: 0;
+    left: 0;
+    z-index: 11;
+    /*display: none;*/
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+    .message-header {
+      font-size: 1.4em;
+      font-weight: bold;
+    }
+  }
+
+  #grid-container {
+    background-color: $secondary-color;
+    border-radius: 6px;
+    padding: 2px;
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+
+    .grid-cell {
+      background-color: $primary-color;
+      /* calculate size but leave space for margins*/
+      width: calc(25% - 4*2px/2); /* 25% - (4*tile margin)/2*/
+      height: calc(25% - 4*2px/2);
+      margin: 2px;
+      border-radius: 3px;
+      text-align: center;
+      line-height: calc((300px - 2px - 4*2px/2) / 4); /*(game size - game padding - (4*tile margin)/2) / tiles count) */
+    }
+
+    #player {
+      @extend .grid-cell;
+      position: absolute;
+      background-color: $secondary-color-hover;
+      font-size: inherit;
+    }
   }
 }
 
@@ -101,4 +129,27 @@ footer {
   text-align: center;
   margin-top: 50px;
   border-top: 1px solid $secondary-color;
+}
+
+@media screen and (min-width: 370px) {
+  .container {
+    width: calc(100% - 48px);
+    padding: 0 24px;
+  }
+
+  /* ==================== Game ==================== */
+  #game {
+    #grid-container {
+      font-size: 1.2em;
+    }
+  }
+}
+
+@media screen and (min-width: 530px) {
+  /* ==================== Game ==================== */
+  #game {
+    #grid-container {
+      font-size: 1.4em;
+    }
+  }
 }
