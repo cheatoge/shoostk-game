@@ -1,0 +1,31 @@
+{
+  "name": "shoostk",
+  "version": "0.1.0",
+  "description": "Simple maths game",
+  "main": "js/game.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cheatoge/shoostk-game.git"
+  },
+  "author": "Łukasz Szpil",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cheatoge/shoostk-game/issues"
+  },
+  "homepage": "https://github.com/cheatoge/shoostk-game#readme",
+  "dependencies": {
+    "browsersync": "0.0.1-security"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.7.0",
+    "browser-sync": "^2.24.4",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^5.0.0",
+    "gulp-babel": "^7.0.1",
+    "gulp-sass": "^4.0.1"
+  }
+}
