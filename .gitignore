@@ -1,7 +1,7 @@
 .idea
 .idea/*
-css/.sass-cache
-css/.sass-cache/*
-css/*.css.map
+sass/.sass-cache
+sass/.sass-cache/*
+sass/*.css.map
 node_modules
 dist
