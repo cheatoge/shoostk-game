@@ -2,7 +2,7 @@
   "name": "shoostk",
   "version": "0.1.0",
   "description": "Simple maths game",
-  "main": "js/game.js",
+  "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -26,6 +26,8 @@
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^5.0.0",
     "gulp-babel": "^7.0.1",
-    "gulp-sass": "^4.0.1"
+    "gulp-minify": "^2.1.0",
+    "gulp-sass": "^4.0.1",
+    "webpack-stream": "^4.0.3"
   }
 }

@@ -2,6 +2,9 @@ const gulp = require('gulp');
 const sass = require('gulp-sass');
 const autoprefixer = require('gulp-autoprefixer');
 const browserSync = require('browser-sync').create();
+const babel = require('gulp-babel');
+const webpack = require('webpack-stream');
+const uglify = require('gulp-minify');
 
 
 /* Watch for changes */
@@ -12,7 +15,7 @@ gulp.task('serve', function () {
   });
 
   gulp.watch('./sass/**/*.scss', ['styles']);
-  gulp.watch('.index.html,', ['copy-html']);
+  gulp.watch('./index.html', ['copy-html']);
   gulp.watch('./dist/index.html').on('change', browserSync.reload);
   gulp.watch('./js/*.js', ['scripts']);
   gulp.watch('./dist/js/*.js').on('change', browserSync.reload);
@@ -30,6 +33,13 @@ gulp.task('styles', function () {
 
 gulp.task('scripts', function () {
   gulp.src('./js/*')
+    .pipe(webpack({output: {
+      filename: "main.js"
+    }}))
+    .pipe(babel({
+      presets: ['env']
+    }))
+    .pipe(uglify())
     .pipe(gulp.dest('./dist/js'));
 });
 
