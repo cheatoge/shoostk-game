@@ -61,14 +61,10 @@ h2, h3, h4, h5, h6 {
     top: 0;
     left: 0;
     z-index: 11;
-    /*display: none;*/
     text-align: center;
     display: flex;
     justify-content: center;
     flex-direction: column; }
-    #game #game-message .message-header {
-      font-size: 1.4em;
-      font-weight: bold; }
   #game #grid-container {
     background-color: #c4957f;
     border-radius: 6px;
