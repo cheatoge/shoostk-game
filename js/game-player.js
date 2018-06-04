@@ -11,9 +11,13 @@ export default class Player {
     this.updatePosition();
   }
 
+  // Returns div that represents player
+  getPlayer() {
+    return document.getElementById('player');
+  }
   // Append player's cell to the html
   create() {
-    $('#grid-container').append(`<div id="${this.playerID}" class="grid-cell" class="player">${this.value}</div>`);
+    $('#game').append(`<div id="${this.playerID}" class="game__cell" class="player">${this.value}</div>`);
   }
 
   // Reset player's position etc.
@@ -26,18 +30,21 @@ export default class Player {
     this.moves = 0;
   }
 
-  doPopAnimation() {
-    const cellHtml = $(`#${this.playerID}`);
-    $(cellHtml).stop().animate({ fontSize : '110%' }, 'fast', function () {
-      $(cellHtml).stop().animate({ fontSize : '100%' }, 'fast');
-    });
-  }
-
   updatePosition() {
     const posX = `${String(this.position.x * this.moveRadius + this.containerPadding)}px`;
     const posY = `${String(this.position.y * this.moveRadius + this.containerPadding)}px`;
-    $(`#${this.playerID}`).css({left: posX, bottom: posY});
+    let player = this.getPlayer();
+    player.style.left = posX;
+    player.style.bottom = posY;
   };
+
+  fadeIn() {
+    this.getPlayer().classList.remove('.game__cell--hidden');
+  }
+
+  fadeOut() {
+    this.getPlayer().classList.add('.game__cell--hidden');
+  }
 
   isMovePossible(nextPosition, gameGrid) {
     const x = nextPosition.x;

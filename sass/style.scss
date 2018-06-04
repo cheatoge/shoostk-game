@@ -66,13 +66,9 @@ h2, h3, h4, h5, h6 {
 
 /* ==================== Game ==================== */
 
-#game {
-  margin-bottom: 30px;
-  width: 100%;
-  overflow: auto;
 
   /* Message displayed on game grid (e.g. when you win) */
-  #game-message {
+  #message {
     background-color: rgba(242, 215, 188, 0.8);
     border-radius: 6px;
     width: 100%;
@@ -81,14 +77,22 @@ h2, h3, h4, h5, h6 {
     top: 0;
     left: 0;
     z-index: 11;
-    //display: none;
     text-align: center;
+    opacity: 0;
     display: flex;
     justify-content: center;
     flex-direction: column;
+    transition: opacity 1s ease-in;
   }
 
-  #grid-container {
+  #game .message--visible{
+    opacity: 1;
+    display: flex;
+    transition: opacity 1s ease-out;
+  }
+
+  #game {
+    overflow: auto;
     background-color: $secondary-color;
     border-radius: 6px;
     padding: 2px;
@@ -96,7 +100,7 @@ h2, h3, h4, h5, h6 {
     flex-wrap: wrap;
     position: relative;
 
-    .grid-cell {
+    .game__cell {
       background-color: $primary-color;
       /* calculate size but leave space for margins*/
       width: calc(25% - 4*2px/2); /* 25% - (4*tile margin)/2*/
@@ -105,16 +109,27 @@ h2, h3, h4, h5, h6 {
       border-radius: 3px;
       text-align: center;
       line-height: calc((300px - 2px - 4*2px/2) / 4); /*(game size - game padding - (4*tile margin)/2) / tiles count) */
+      visibility: visible;
+      opacity: 1;
+      transition: all 0.1s ease-out;
+    }
+
+    .game__cell--hidden {
+      visibility: hidden;
+      width: 0;
+      height: 0;
+      transition: all 0.2s ease-out;
     }
 
     #player {
-      @extend .grid-cell;
+      @extend .game__cell;
       position: absolute;
       background-color: $secondary-color-hover;
       font-size: inherit;
+      transition: all 0.2s ease-out;
     }
   }
-}
+
 
 footer {
   text-align: center;

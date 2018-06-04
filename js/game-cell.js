@@ -43,9 +43,9 @@ export default class GameCell {
   appendToHtml() {
     let div = document.createElement('div');
     div.innerHTML = `${this.actionType}${this.value}`;
-    div.className = 'grid-cell';
+    div.className = 'game__cell';
     div.id = this.postitionAsText;
-    document.getElementById('grid-container').appendChild(div);
+    document.getElementById('game').appendChild(div);
   }
 
   updateCellProperties() {

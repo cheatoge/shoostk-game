@@ -47,46 +47,60 @@ h2, h3, h4, h5, h6 {
     margin-left: auto; }
 
 /* ==================== Game ==================== */
-#game {
-  margin-bottom: 30px;
+/* Message displayed on game grid (e.g. when you win) */
+#message {
+  background-color: rgba(242, 215, 188, 0.8);
+  border-radius: 6px;
   width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 11;
+  text-align: center;
+  opacity: 0;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  transition: opacity 1s ease-in; }
+
+#game .message--visible {
+  opacity: 1;
+  display: flex;
+  transition: opacity 1s ease-out; }
+
+#game {
   overflow: auto;
-  /* Message displayed on game grid (e.g. when you win) */ }
-  #game #game-message {
-    background-color: rgba(242, 215, 188, 0.8);
-    border-radius: 6px;
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 11;
+  background-color: #c4957f;
+  border-radius: 6px;
+  padding: 2px;
+  display: flex;
+  flex-wrap: wrap;
+  position: relative; }
+  #game .game__cell, #game #player {
+    background-color: #fff1dd;
+    /* calculate size but leave space for margins*/
+    width: calc(25% - 4*2px/2);
+    /* 25% - (4*tile margin)/2*/
+    height: calc(25% - 4*2px/2);
+    margin: 2px;
+    border-radius: 3px;
     text-align: center;
-    display: flex;
-    justify-content: center;
-    flex-direction: column; }
-  #game #grid-container {
-    background-color: #c4957f;
-    border-radius: 6px;
-    padding: 2px;
-    display: flex;
-    flex-wrap: wrap;
-    position: relative; }
-    #game #grid-container .grid-cell, #game #grid-container #player {
-      background-color: #fff1dd;
-      /* calculate size but leave space for margins*/
-      width: calc(25% - 4*2px/2);
-      /* 25% - (4*tile margin)/2*/
-      height: calc(25% - 4*2px/2);
-      margin: 2px;
-      border-radius: 3px;
-      text-align: center;
-      line-height: calc((300px - 2px - 4*2px/2) / 4);
-      /*(game size - game padding - (4*tile margin)/2) / tiles count) */ }
-    #game #grid-container #player {
-      position: absolute;
-      background-color: #ffb58e;
-      font-size: inherit; }
+    line-height: calc((300px - 2px - 4*2px/2) / 4);
+    /*(game size - game padding - (4*tile margin)/2) / tiles count) */
+    visibility: visible;
+    opacity: 1;
+    transition: all 0.1s ease-out; }
+  #game .game__cell--hidden {
+    visibility: hidden;
+    width: 0;
+    height: 0;
+    transition: all 0.2s ease-out; }
+  #game #player {
+    position: absolute;
+    background-color: #ffb58e;
+    font-size: inherit;
+    transition: all 0.2s ease-out; }
 
 footer {
   text-align: center;

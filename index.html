@@ -18,18 +18,16 @@
   </header>
 
   <main>
+    <div id="game-panel">
+      <span>Move your tile to get value <b>6</b>!</span>
+      <button class="button new-game">New game</button>
+    </div>
     <div id="game">
-      <div id="game-panel">
-        <span>Move your tile to get value <b>6</b>!</span>
-        <button class="button new-game">New game</button>
-      </div>
-      <div id="grid-container">
-        <div id="game-message">
-          <div>
-            <h2 class="message-header">Congratulations!</h2>
-            <p>You won in <b id="moves"></b> moves!</p>
-          <button class="button new-game">Play again!</button>
-          </div>
+      <div id="message" class="message--visible">
+        <div>
+          <h2 class="message__header">Congratulations!</h2>
+          <p>You won in <b id="moves"></b> moves!</p>
+        <button class="button new-game">Play again!</button>
         </div>
       </div>
     </div>
